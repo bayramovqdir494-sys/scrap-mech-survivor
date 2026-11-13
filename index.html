@@ -163,6 +163,48 @@ html,body{margin:0;height:100%;overflow:hidden;background:#17120e;overscroll-beh
 #rotate{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 64px);transform:translateX(-50%);z-index:70;background:#000b;color:#fff;display:none;padding:8px 16px;border-radius:20px;font-size:13px;letter-spacing:.04em;pointer-events:none;white-space:nowrap}
 #dbg{position:fixed;left:6px;top:80px;z-index:90;color:#0f0;font:11px monospace;text-transform:none;white-space:pre;background:#0008;padding:4px;display:none}
 @media (max-height:430px){.sheet .panel{padding:16px 12px 10px}#home .logo{top:3%}#home .mid{bottom:12%;gap:8px}.btn{padding:8px 16px}}
+
+/* v5: layout, minimap, overlays, short-screen sheets */
+#ui{z-index:10}
+#joy{z-index:5}
+body.overlay-open #joy,body:has(#cards.on) #joy,body:has(#pause.on) #joy,body:has(#result.on) #joy,body:has(#settings.on) #joy{display:none!important}
+#cardrow{display:flex;justify-content:center;align-items:stretch;flex-wrap:nowrap;gap:clamp(6px,1.5vmin,16px);padding:0 8px;max-width:100%;box-sizing:border-box;width:100%}
+.card{box-sizing:border-box;flex:1 1 0;min-width:0;width:auto;max-width:250px}
+.card .ic,.card .ic img{max-width:100%}
+#banner{top:auto;bottom:22%;z-index:5;font-size:clamp(18px,4.2vmin,40px);padding:8px 0}
+#toast{top:auto;bottom:12%;z-index:6}
+#bossw{top:clamp(50px,10vmin,76px);z-index:4}
+#minimap{position:absolute;top:calc(10px + clamp(38px,7vmin,52px) + 6px);right:12px;width:clamp(84px,16vmin,112px);height:clamp(84px,16vmin,112px);border-radius:8px;overflow:hidden;border:2px solid #ffb84a88;box-shadow:0 4px 12px #0008;pointer-events:none;z-index:5;background:#0008}
+#minimap canvas{width:100%;height:100%;display:block}
+#earrows{position:fixed;inset:0;pointer-events:none;z-index:5}
+#earrows i{position:absolute;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:14px solid currentColor;filter:drop-shadow(0 1px 1px #000)}
+.sheet .panel{max-height:92vh;overflow:auto;-webkit-overflow-scrolling:touch;scrollbar-gutter:stable}
+.grid{overflow:visible;padding-bottom:6px}
+.tile .lock{background:#10161cf5;flex-direction:column;gap:8px;padding:14px 10px}
+.tile .lock b{display:block;font-size:clamp(15px,2.6vmin,20px);color:#fff}
+.tile .lock span{display:block;font-size:clamp(11px,2vmin,15px);color:#d6dde4;max-width:16em;line-height:1.25;text-transform:uppercase}
+.tile:has(.lock) h4,.tile:has(.lock) .dim,.tile:has(.lock) .chip,.tile:has(.lock) .pv,.tile:has(.lock) > .btn{visibility:hidden}
+.scrollcue{display:none;position:sticky;bottom:0;align-self:center;margin:6px auto 0;background:#000c;color:var(--o2);border:1px solid var(--o);border-radius:12px;padding:3px 10px;font-size:11px;letter-spacing:.14em;pointer-events:none;z-index:3}
+.scrollcue.on{display:block}
+@media (max-height:430px){
+  .sheet .panel{padding:12px 10px 8px;max-height:96vh;gap:6px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,158px),1fr));gap:6px}
+  .tile{padding:7px}
+  .tile h4{font-size:clamp(13px,2.4vmin,18px)}
+  .daygrid{gap:4px}
+  .day{padding:4px 1px}
+  .mis{padding:6px 8px}
+  .card{padding:8px 6px}
+  .card .ic{width:clamp(42px,11vmin,80px);height:clamp(42px,11vmin,80px)}
+  .card p{min-height:0;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .card h3{font-size:clamp(13px,3vmin,20px)}
+  #cards h2{font-size:clamp(16px,4.4vmin,32px)}
+  #home .logo{top:2%}
+  #home .mid{bottom:10%;gap:8px}
+}
+@media (max-width:900px) and (max-height:430px){
+  #minimap{width:78px;height:78px;top:calc(8px + 40px);right:8px}
+}
 </style>
 </head>
 <body>
@@ -206,6 +248,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#17120e;overscroll-beh
 <div id="joy"><i></i></div>
 <div id="rotate">Tip: rotate to landscape for a wider view</div>
 <div id="dbg"></div>
+<script src="js/v5.js"></script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>
